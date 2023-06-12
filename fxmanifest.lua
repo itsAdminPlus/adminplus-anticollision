@@ -6,5 +6,5 @@ description 'AdminPlus Anti Collision For x Props'
 lua54 'yes'
 
 client_scripts {
-    'client/*'
+    'main.lua'
 }
