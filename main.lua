@@ -75,14 +75,16 @@ Citizen.CreateThread(function()
         --print (GetHashKey(props[i]))
     end
     while true do
-        Citizen.Wait(500)
-        for v in EnumerateObjects() do
-            if propsHash[GetEntityModel(v)] then
-                --FreezeEntityPosition(v, true)
-                --SetEntityCanBeDamaged(v, false)
-                SetEntityCollision(v, false)
-                --SetEntityNoCollisionEntity(veh, v, false)
+        if IsPedInAnyVehicle(PlayerPedId(), false) then
+            for v in EnumerateObjects() do
+                if propsHash[GetEntityModel(v)] then
+                    FreezeEntityPosition(v, true)
+                    SetEntityCanBeDamaged(v, false)
+                    --SetEntityCollision(v, false)
+                    --SetEntityNoCollisionEntity(veh, v, false)
+                end
             end
         end
+        Citizen.Wait(500)
     end
 end)
