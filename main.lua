@@ -69,10 +69,8 @@ local props = {
 
 Citizen.CreateThread(function()
     local propsHash = {}
-    local veh = GetVehiclePedIsIn(PlayerPedId())
     for i=1,#props do
         propsHash[GetHashKey(props[i])] = true
-        --print (GetHashKey(props[i]))
     end
     while true do
         if IsPedInAnyVehicle(PlayerPedId(), false) then
@@ -80,8 +78,7 @@ Citizen.CreateThread(function()
                 if propsHash[GetEntityModel(v)] then
                     FreezeEntityPosition(v, true)
                     SetEntityCanBeDamaged(v, false)
-                    --SetEntityCollision(v, false)
-                    --SetEntityNoCollisionEntity(veh, v, false)
+                    SetEntityCollision(v, false, false) -- disable the collision for the prop so you can drive through
                 end
             end
         end
