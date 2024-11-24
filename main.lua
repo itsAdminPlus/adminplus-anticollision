@@ -69,19 +69,18 @@ local props = {
 
 Citizen.CreateThread(function()
     local propsHash = {}
-    for i=1,#props do
-        propsHash[GetHashKey(props[i])] = true
+    for _, prop in ipairs(props) do
+        propsHash[GetHashKey(prop)] = true
     end
+
     while true do
-        if IsPedInAnyVehicle(PlayerPedId(), false) then
-            for v in EnumerateObjects() do
-                if propsHash[GetEntityModel(v)] then
-                    FreezeEntityPosition(v, true)
-                    SetEntityCanBeDamaged(v, false)
-                    SetEntityCollision(v, false, false) -- disable the collision for the prop so you can drive through
-                end
+        for entity in EnumerateObjects() do
+            if DoesEntityExist(entity) and propsHash[GetEntityModel(entity)] then
+                FreezeEntityPosition(entity, true)
+                SetEntityCanBeDamaged(entity, false)
+                --SetEntityCollision(entity, false, false) -- disable collision so you can drive through x props , uncheck if you want it.
             end
         end
-        Citizen.Wait(500)
+        Citizen.Wait(100)
     end
 end)
